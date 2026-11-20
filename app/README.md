@@ -76,6 +76,11 @@ In development, `http://localhost:3001/dev/sample` (add `?preview` for a
 preview) signs one with `ROLLOUT_CLIENT_SECRET` and redirects to it. It answers
 404 in production.
 
+`/sample` is the panel on its own with sample data: no context, no app script,
+nothing verified. It's public, so a docs page can frame it to show what the app
+looks like (live at <https://lintel-app-demo.vercel.app/sample>). It isn't the
+app URL, and `/embed` still refuses anything unsigned.
+
 ## Demo limits
 
 The replay store, the agent links and the used connect tokens live in memory.
