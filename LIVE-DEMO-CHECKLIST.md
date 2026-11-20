@@ -1,5 +1,31 @@
 # Live demo checklist: what Rollout sets up
 
+## Current setup (done)
+
+The live demo runs on two Rollout tenants, as a real CRM and a real app
+publisher would:
+
+| Side | Rollout tenant | What's set up there |
+| --- | --- | --- |
+| Marketplace owner (Stoop) | **Rollout Test** | "Rollout test marketplace", with `https://stoop-crm-demo.vercel.app` and `http://localhost:3000` under Pages that may show the apps. Lintel's listing approved. |
+| App publisher (Lintel) | **Rollout Dev** | Lintel registered with App URL `https://lintel-app-demo.vercel.app/embed`, listed in Rollout test marketplace. |
+
+Vercel environment (all set as encrypted variables, none in the repo):
+
+| Project | Variables |
+| --- | --- |
+| `stoop-crm-demo` | `ROLLOUT_TENANT_ID` and `ROLLOUT_CLIENT_SECRET` from Rollout Test, `ROLLOUT_MARKETPLACE_ID` of Rollout test marketplace |
+| `lintel-app-demo` | `ROLLOUT_CLIENT_SECRET`: Rollout Dev's Current secret |
+
+Lintel is turned on for Dana (`usr_dana_okafor`). To demo the org switch,
+sign in to Stoop as Marcus and use Enable for my org.
+
+If a secret is rotated in either tenant, update that project's
+`ROLLOUT_CLIENT_SECRET` (`vercel env add ROLLOUT_CLIENT_SECRET production
+--sensitive --force` in `crm` or `app`) and redeploy it.
+
+The rest of this page is the from-scratch checklist.
+
 Rollout sets up marketplace owners and app publishers itself. For the demo,
 that's two Rollout tenants, one for each side, so each has its own client
 secret, as real customers would.
