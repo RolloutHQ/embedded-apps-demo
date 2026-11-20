@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { AppsPlacementProvider } from "@/components/AppsPlacement";
 import { ContactTabs } from "@/components/ContactTabs";
 import { ChevronLeft, ChevronRight } from "@/components/icons";
+import { PagerLink } from "@/components/PagerLink";
+import { RailApps } from "@/components/RailApps";
 import { Topbar } from "@/components/Topbar";
 import {
   contactsForUser,
@@ -19,7 +21,7 @@ import {
 import { getSignedInUser } from "@/lib/session";
 import { hostLibraryUrl, isConfigured, marketplaceId } from "@/rollout/config";
 
-type Props = { params: Promise<{ id: string }>; searchParams: Promise<{ tab?: string }> };
+type Props = { params: Promise<{ id: string }>; searchParams: Promise<{ tab?: string; apps?: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const user = await getSignedInUser();
@@ -28,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ContactPage({ params, searchParams }: Props) {
-  const [{ id }, { tab }, user] = await Promise.all([params, searchParams, getSignedInUser()]);
+  const [{ id }, { tab, apps }, user] = await Promise.all([params, searchParams, getSignedInUser()]);
   const contact = findContactForUser(user, id);
   if (!contact) notFound();
 
@@ -36,7 +38,10 @@ export default async function ContactPage({ params, searchParams }: Props) {
   const index = list.findIndex((c) => c.id === contact.id);
   const prev = list[index - 1];
   const next = list[index + 1];
-  const tabQuery = tab ? `?tab=${encodeURIComponent(tab)}` : "";
+  const placement = apps === "sidebar" ? "sidebar" : "tab";
+  const rollout = isConfigured()
+    ? ({ configured: true, hostLibraryUrl, marketplaceId: marketplaceId() } as const)
+    : ({ configured: false } as const);
   const stageIndex = STAGES.findIndex((s) => s.id === contact.stage.id);
   const owner = ownerOf(contact);
   const openTasks = contact.tasks.filter((t) => !t.done);
@@ -53,7 +58,7 @@ export default async function ContactPage({ params, searchParams }: Props) {
         }
       />
       <main className="page">
-        <div className="contact">
+        <AppsPlacementProvider initial={placement}>
           <div>
             <div className="contact-head">
               <div style={{ minWidth: 0, flex: 1 }}>
@@ -66,22 +71,12 @@ export default async function ContactPage({ params, searchParams }: Props) {
                 </div>
               </div>
               <div className="pager">
-                <Link
-                  className="icon-btn"
-                  href={prev ? `/contacts/${prev.id}${tabQuery}` : "#"}
-                  aria-disabled={!prev}
-                  aria-label={prev ? `Previous: ${fullName(prev)}` : "No previous contact"}
-                >
+                <PagerLink contactId={prev?.id} label={prev ? `Previous: ${fullName(prev)}` : "No previous contact"}>
                   <ChevronLeft />
-                </Link>
-                <Link
-                  className="icon-btn"
-                  href={next ? `/contacts/${next.id}${tabQuery}` : "#"}
-                  aria-disabled={!next}
-                  aria-label={next ? `Next: ${fullName(next)}` : "No next contact"}
-                >
+                </PagerLink>
+                <PagerLink contactId={next?.id} label={next ? `Next: ${fullName(next)}` : "No next contact"}>
                   <ChevronRight />
-                </Link>
+                </PagerLink>
               </div>
             </div>
 
@@ -109,15 +104,12 @@ export default async function ContactPage({ params, searchParams }: Props) {
                 { label: "Open tasks", value: String(openTasks.length) },
                 { label: "In Stoop since", value: dateFromDaysAgo(contact.createdDays) },
               ]}
-              rollout={
-                isConfigured()
-                  ? { configured: true, hostLibraryUrl, marketplaceId: marketplaceId() }
-                  : { configured: false }
-              }
+              rollout={rollout}
             />
           </div>
 
           <aside className="rail">
+            <RailApps rollout={rollout} contact={{ id: contact.id, firstName: contact.firstName }} />
             <section className="panel">
               <h3>Details</h3>
               <dl className="props">
@@ -166,7 +158,7 @@ export default async function ContactPage({ params, searchParams }: Props) {
               ))}
             </section>
           </aside>
-        </div>
+        </AppsPlacementProvider>
       </main>
     </>
   );

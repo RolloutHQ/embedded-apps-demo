@@ -343,3 +343,26 @@ table.grid { width: 100%; border-collapse: collapse; min-width: 880px; }
   .flow li { border-right: 0; border-bottom: 1px solid var(--line); }
   .ladder .rung span { display: none; }
 }
+
+/* ---------- Apps in the sidebar, the way Follow Up Boss shows them ---------- */
+.contact[data-apps="sidebar"] { grid-template-columns: minmax(0, 1fr) 360px; }
+.contact[data-apps="sidebar"] .rail { position: static; }
+.rail-apps { padding: 12px 12px 6px; }
+.rail-apps h3 { align-items: baseline; margin-bottom: 10px; }
+.rail-apps .apps-empty { padding: 18px 14px; }
+.link-button { border: 0; background: none; padding: 0; color: var(--accent); font: inherit; font-size: 12px; font-weight: 550; cursor: pointer; }
+.link-button:hover { text-decoration: underline; text-underline-offset: 2px; }
+.apps-head { flex-wrap: wrap; align-items: center; }
+.apps-head p { flex: 1 1 260px; }
+.apps-head .placement { margin-left: auto; width: 230px; }
+.apps-head a { margin-left: 0; }
+.apps-moved {
+  display: flex; flex-direction: column; gap: 4px;
+  border: 1px dashed var(--line-strong); border-radius: var(--radius-lg);
+  padding: 22px 20px; background: var(--surface); color: var(--muted);
+}
+.apps-moved strong { color: var(--ink); font-size: 15px; font-weight: 600; }
+.apps-moved .link-button { font-size: inherit; }
+@media (max-width: 1080px) {
+  .contact[data-apps="sidebar"] { grid-template-columns: minmax(0, 1fr); }
+}

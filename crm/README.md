@@ -18,6 +18,13 @@ Everything Rollout-specific is in [`src/rollout/`](src/rollout):
 | [`content-security-policy.ts`](src/rollout/content-security-policy.ts) | Rollout's origin in `script-src`, `frame-src`, `connect-src` and `img-src`. Sent from `next.config.ts`. |
 | [`config.ts`](src/rollout/config.ts) | Reads the `ROLLOUT_*` variables. |
 
+**Two placements, one mount.** A contact's apps show either in the wide Apps
+tab or in a narrow panel at the top of the right sidebar, as Follow Up Boss
+places embedded apps (toggle on the Apps tab, or `?apps=sidebar` in the URL).
+Both use the same `EmbeddedApps.tsx`; only the container differs. The
+placement code lives in `src/components/` (`AppsPlacement.tsx`,
+`AppsMount.tsx`, `RailApps.tsx`), because nothing about it is Rollout-specific.
+
 The two files under `src/app/api/rollout/` are one-line route files that
 re-export the handlers. Everything else in `src/` is the CRM itself. The app
 has a **How this works** page (`/how-it-works`) that shows these files with

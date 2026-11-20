@@ -34,6 +34,11 @@ What `/embed` does on each launch:
 - **Real launch**: the lead for `crm.personId`, named with `person.firstName`.
   A **Connect Lintel** button until the agent links their account.
 
+**Any width.** The panel lays itself out by its own width with CSS container
+queries: two columns from 560px, stacked below that, and a compact layout
+under 420px for CRM sidebars like Follow Up Boss's. Rollout sizes the frame's
+height to the content at every width.
+
 The app has a **How this works** page (`/how-it-works`) that shows these files
 with their real code.
 

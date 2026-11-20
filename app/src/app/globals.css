@@ -26,7 +26,7 @@ button { font: inherit; }
 h1, h2 { font-family: var(--display); }
 
 /* ---------- The panel shown inside the CRM ---------- */
-.panel { container-type: inline-size; padding: 16px 18px 14px; }
+.panel { container-type: inline-size; padding: clamp(10px, 3.5vw, 16px) clamp(10px, 4vw, 18px) 14px; }
 .panel h2 { font-size: 13px; font-weight: 650; margin: 0 0 10px; letter-spacing: -0.005em; color: var(--ink); }
 
 .panel-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
@@ -76,9 +76,9 @@ h1, h2 { font-family: var(--display); }
 .section-head h2 { margin: 0; }
 .section-head span { color: var(--muted); font-size: 12.5px; }
 .home-row {
-  list-style: none; margin: 0 -18px; padding: 2px 18px 6px;
+  list-style: none; margin: 0 calc(-1 * clamp(10px, 4vw, 18px)); padding: 2px clamp(10px, 4vw, 18px) 6px;
   display: grid; grid-auto-flow: column; grid-auto-columns: 176px; gap: 12px;
-  overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 18px; scrollbar-width: thin;
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: clamp(10px, 4vw, 18px); scrollbar-width: thin;
 }
 .home { scroll-snap-align: start; }
 .home-photo { position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 160 / 112; background: var(--wash); }
@@ -180,4 +180,19 @@ h1, h2 { font-family: var(--display); }
   .hiw-files li a { grid-template-columns: 1fr; gap: 2px; }
   .site { padding: 18px 16px 60px; }
   .site-nav { margin-bottom: 40px; gap: 14px; }
+}
+
+/* ---------- Narrow placements: CRM sidebars around 280 to 420px ---------- */
+@container (max-width: 420px) {
+  .panel-head { gap: 4px 10px; margin-bottom: 12px; }
+  .last-seen { order: 3; flex-basis: 100%; font-size: 12px; }
+  .connect { padding: 5px 12px; }
+  .score-body { flex-direction: column; align-items: stretch; gap: 10px; }
+  .dial { margin: 0 auto; }
+  .estimate { font-size: 30px; }
+  .change span { margin-left: 0; flex-basis: 100%; }
+  .home-row { grid-auto-columns: 148px; gap: 10px; }
+  .home-body strong { font-size: 15px; }
+  .searches li { flex-direction: column; gap: 2px; }
+  .search-meta { text-align: left; flex-direction: row; gap: 8px; }
 }

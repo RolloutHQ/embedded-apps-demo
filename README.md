@@ -72,9 +72,14 @@ approval, and turning it on for the demo user.
    tab: Lintel shows her lead score, the homes she keeps reopening, and her
    home's value.
 2. Use the arrows to go to the next contact: Lintel follows with that lead.
-3. Choose **Connect Lintel** to show the popup sign-in and the frame reloading
+3. Choose **In the sidebar** on the Apps tab: the same app moves into a narrow
+   panel beside the contact's details (about 335px), the way Follow Up Boss
+   shows embedded apps, and adapts its layout to fit. Link straight to it with
+   `?apps=sidebar`, for example
+   <https://stoop-crm-demo.vercel.app/contacts/c_melissa_hartman?apps=sidebar>.
+4. Choose **Connect Lintel** to show the popup sign-in and the frame reloading
    connected.
-4. Switch to **Marcus** (org admin), go to **Apps**, and turn Lintel on with
+5. Switch to **Marcus** (org admin), go to **Apps**, and turn Lintel on with
    **Enable for my org**. Switch back to **Dana**: her card shows Lintel on,
    "Enabled by your org", and only an admin can turn it off.
-5. Open **How this works** in each app to show how little each side built.
+6. Open **How this works** in each app to show how little each side built.
