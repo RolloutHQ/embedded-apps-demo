@@ -1,5 +1,44 @@
 # Deploying the demo
 
+## Where it runs now
+
+Both apps are deployed on Vercel, in the **rollout** team:
+
+| Vercel project | Root directory | Production URL |
+| --- | --- | --- |
+| `lintel-app-demo` | `app` | <https://lintel-app-demo.vercel.app> |
+| `stoop-crm-demo` | `crm` | <https://stoop-crm-demo.vercel.app> |
+
+To redeploy after a change, from each folder (it's already linked):
+
+```bash
+cd app && vercel deploy --prod
+```
+
+```bash
+cd crm && vercel deploy --prod
+```
+
+To set the Rollout values once Rollout has created the tenants, then redeploy:
+
+```bash
+cd app && vercel env add ROLLOUT_CLIENT_SECRET production
+```
+
+```bash
+cd crm && vercel env add ROLLOUT_TENANT_ID production && vercel env add ROLLOUT_CLIENT_SECRET production && vercel env add ROLLOUT_MARKETPLACE_ID production
+```
+
+**Deploy on push (not set up yet).** For each project, in the Vercel
+dashboard: **Settings → Build and Deployment → Root Directory** set to `app`
+or `crm`, then **Settings → Git → Connect** the
+`RolloutHQ/embedded-apps-demo` repository. After that, every push to `main`
+redeploys both.
+
+The rest of this page is the from-scratch guide.
+
+## From scratch
+
 Deploy **two separate projects** from this one repository:
 
 | Project | Root directory | Suggested name | URL you'll get |
@@ -13,7 +52,7 @@ deploy Stoop and give Rollout its origin for the marketplace.
 Never commit `.env.local` or real secrets. Both `.gitignore` files exclude
 them. Put secrets in the host's environment settings.
 
-## Vercel
+### Vercel
 
 The free Hobby plan is enough for a demo.
 
@@ -42,7 +81,7 @@ npx vercel env add ROLLOUT_CLIENT_SECRET production
 npx vercel --prod
 ```
 
-### Things to know on Vercel
+#### Things to know on Vercel
 
 - **Turn off Deployment Protection for production**, or at least make sure
   the production domains are public (**Settings → Deployment Protection**).
@@ -58,7 +97,7 @@ npx vercel --prod
   serverless instance's memory. For a demo that's fine; see "Demo limits" in
   [app/README.md](app/README.md).
 
-## Cloudflare Workers (free alternative)
+### Cloudflare Workers (free alternative)
 
 Cloudflare's free Workers plan runs Next.js through the OpenNext adapter
 (`@opennextjs/cloudflare`, which supports this repository's Next.js 16.4.6).
@@ -127,7 +166,7 @@ Workers isolates have their own memory too, so the same "Demo limits" apply.
 The Cloudflare steps are written from OpenNext's documented setup and were
 not run against this repository yet; the Vercel path is the simpler one.
 
-## After deploying
+### After deploying
 
 1. Open `https://<lintel-domain>/embed` with no parameters: you should see
    "Open Lintel from your CRM".

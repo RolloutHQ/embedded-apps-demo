@@ -4,12 +4,12 @@ Rollout sets up marketplace owners and app publishers itself. For the demo,
 that's two Rollout tenants, one for each side, so each has its own client
 secret, as real customers would.
 
-Fill in the two deployed URLs first ([DEPLOY.md](DEPLOY.md)):
+The two deployed URLs ([DEPLOY.md](DEPLOY.md)):
 
 | | Value |
 | --- | --- |
-| Stoop's origin | `https://__________________` (no path) |
-| Lintel's app URL | `https://__________________/embed` |
+| Stoop's origin | `https://stoop-crm-demo.vercel.app` |
+| Lintel's app URL | `https://lintel-app-demo.vercel.app/embed` |
 
 ## 1. Marketplace owner: Stoop
 
@@ -48,7 +48,7 @@ Fill in the two deployed URLs first ([DEPLOY.md](DEPLOY.md)):
   - [ ] **Icon**: [`app/public/lintel-icon.png`](app/public/lintel-icon.png)
     (512×512 PNG)
   - [ ] **Support URL** and **Privacy policy URL**: optional. Lintel's
-    `https://…/how-it-works` works as a support link for the demo.
+    `https://lintel-app-demo.vercel.app/how-it-works` works as a support link for the demo.
 - [ ] **Test the signature check**: the sample opens Lintel with "Preview with
   sample data". If it says "Open Lintel from your CRM", the secret doesn't
   match or the sample expired.

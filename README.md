@@ -1,7 +1,13 @@
 # Rollout Embedded Apps Marketplace demo
 
 Two small products that show Rollout's Embedded Apps Marketplace end to end,
-for sales demos:
+for sales demos.
+
+**Live:** Stoop, the CRM, at <https://stoop-crm-demo.vercel.app>, and Lintel,
+the app, at <https://lintel-app-demo.vercel.app>. Each has a **How this
+works** page with its Rollout code:
+[Stoop's](https://stoop-crm-demo.vercel.app/how-it-works),
+[Lintel's](https://lintel-app-demo.vercel.app/how-it-works).
 
 | | Folder | Plays | What it built for Rollout |
 | --- | --- | --- | --- |
